@@ -1,24 +1,33 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { StyleSheet, View } from 'react-native';
+import store from './store';
+import { CreditsView } from './credits/containers';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 30,
   },
 });
 
 type Props = {};
 export default class Application extends Component<Props> {
+  store = store;
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>WoW!</Text>
-      </View>
+      <Provider store={this.store}>
+        <View style={styles.container}>
+          <CreditsView />
+        </View>
+      </Provider>
     );
   }
 }

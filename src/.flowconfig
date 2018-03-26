@@ -3,40 +3,40 @@
 .*/*[.]android.js
 
 ; Ignore templates for 'react-native init'
-<PROJECT_ROOT>/node_modules/react-native/local-cli/templates/.*
+../node_modules/react-native/local-cli/templates/.*
 
 ; Ignore RN jest
-<PROJECT_ROOT>/node_modules/react-native/jest/.*
+../node_modules/react-native/jest/.*
 
 ; Ignore RNTester
-<PROJECT_ROOT>/node_modules/react-native/RNTester/.*
+../node_modules/react-native/RNTester/.*
 
 ; Ignore the website subdir
-<PROJECT_ROOT>/node_modules/react-native/website/.*
+../node_modules/react-native/website/.*
 
 ; Ignore the Dangerfile
-<PROJECT_ROOT>/node_modules/react-native/danger/dangerfile.js
+../node_modules/react-native/danger/dangerfile.js
 
 ; Ignore Fbemitter
-<PROJECT_ROOT>/node_modules/fbemitter/.*
+../node_modules/fbemitter/.*
 
 ; Ignore "BUCK" generated dirs
-<PROJECT_ROOT>/node_modules/react-native/\.buckd/
+../node_modules/react-native/\.buckd/
 
 ; Ignore unexpected extra "@providesModule"
 .*/node_modules/.*/node_modules/fbjs/.*
 
 ; Ignore polyfills
-<PROJECT_ROOT>/node_modules/react-native/Libraries/polyfills/.*
+../node_modules/react-native/Libraries/polyfills/.*
 
 ; Ignore various node_modules
-<PROJECT_ROOT>/node_modules/react-native-gesture-handler/.*
-<PROJECT_ROOT>/node_modules/expo/.*
-<PROJECT_ROOT>/node_modules/react-navigation/.*
-<PROJECT_ROOT>/node_modules/xdl/.*
-<PROJECT_ROOT>/node_modules/reqwest/.*
-<PROJECT_ROOT>/node_modules/metro-bundler/.*
-<PROJECT_ROOT>/node_modules/metro/.*
+../node_modules/react-native-gesture-handler/.*
+../node_modules/expo/.*
+../node_modules/react-navigation/.*
+../node_modules/xdl/.*
+../node_modules/reqwest/.*
+../node_modules/metro-bundler/.*
+../node_modules/metro/.*
 
 [include]
 

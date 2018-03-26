@@ -7,8 +7,14 @@
   "plugins": [
     "flowtype"
   ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
   "rules": {
     "react/prefer-stateless-function": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "object-curly-newline": "off",
+    "import/prefer-default-export": "off"
   }
 }
