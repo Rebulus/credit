@@ -1,10 +1,11 @@
 // @flow
-import React, { PureComponent, Fragment } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import type { Credit } from '../types';
 
 type CreditViewProps = {
   credit: Credit,
+  onEdit: Function,
 }
 
 const styles = StyleSheet.create({
@@ -14,16 +15,23 @@ const styles = StyleSheet.create({
 });
 
 class CreditView extends PureComponent<CreditViewProps> {
+  onEdit = () => {
+    const { credit, onEdit }: CreditViewProps = this.props;
+    onEdit(credit.id);
+  };
+
   render() {
     const { credit }: CreditViewProps = this.props;
     // TODO - add percent view
     return (
-      <Fragment>
-        <View style={styles.creditView}>
-          <Text>{credit.id}: {credit.name}</Text>
-          <Text>Months: {credit.months}, Percent: {credit.percent * 100}%</Text>
-        </View>
-      </Fragment>
+      <View style={styles.creditView}>
+        <Text>{credit.id}: {credit.name}</Text>
+        <Text>Months: {credit.months}, Percent: {credit.percent * 100}%</Text>
+        <Button
+          title="Edit"
+          onPress={this.onEdit}
+        />
+      </View>
     );
   }
 }
