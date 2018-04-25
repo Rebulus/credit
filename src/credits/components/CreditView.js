@@ -6,6 +6,7 @@ import { Credit } from '../models';
 type CreditViewProps = {
   credit: Credit,
   onEdit: Function,
+  onRemove: Function
 }
 
 const styles = StyleSheet.create({
@@ -20,16 +21,25 @@ class CreditView extends PureComponent<CreditViewProps> {
     onEdit(credit.id);
   };
 
+  onRemove = () => {
+    const { credit, onRemove }: CreditViewProps = this.props;
+    onRemove(credit.id);
+  }
+
   render() {
     const { credit }: CreditViewProps = this.props;
     // TODO - add percent view
     return (
       <View style={styles.creditView}>
-        <Text>{credit.id}: {credit.name}</Text>
+        <Text>{credit.name}</Text>
         <Text>Months: {credit.months}, Percent: {credit.percent * 100}%</Text>
         <Button
           title="Edit"
           onPress={this.onEdit}
+        />
+        <Button
+          title="Remove"
+          onPress={this.onRemove}
         />
       </View>
     );

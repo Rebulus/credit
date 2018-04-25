@@ -8,6 +8,7 @@ import {
   saveCredit,
   editCredit,
   cancelEditCredit,
+  removeCredit,
 } from '../../thunks';
 
 type CreditsViewProps = {
@@ -16,6 +17,7 @@ type CreditsViewProps = {
   edit: Function,
   save: Function,
   cancel: Function,
+  remove: Function,
 };
 
 class CreditsView extends PureComponent<CreditsViewProps> {
@@ -37,6 +39,11 @@ class CreditsView extends PureComponent<CreditsViewProps> {
     cancel();
   };
 
+  onRemove = (id: string) => {
+    const { remove }: CreditsViewProps = this.props;
+    remove(id);
+  }
+
   render() {
     const { credits: { order, items }, editedCreditId } : CreditsViewProps = this.props;
     return order.map((id: string) => {
@@ -56,6 +63,7 @@ class CreditsView extends PureComponent<CreditsViewProps> {
           key={id}
           credit={credit}
           onEdit={this.onEdit}
+          onRemove={this.onRemove}
         />
       );
     });
@@ -72,6 +80,7 @@ const mapsDispatchToProps = {
   save: saveCredit,
   edit: editCredit,
   cancel: cancelEditCredit,
+  remove: removeCredit,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(CreditsView);
