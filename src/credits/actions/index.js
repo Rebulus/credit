@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
 
-export const addCredit = createAction('addCredit');
-export const removeCredit = createAction('removeCredit');
-export const updateCredit = createAction('updateCredit');
+export const addCredit = createAction('credits__addCredit');
+export const removeCredit = createAction('credits__removeCredit');
+export const updateCredit = createAction('credits__updateCredit');
