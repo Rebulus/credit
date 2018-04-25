@@ -1,15 +1,7 @@
 // @flow
-import { filter, omit } from 'lodash/fp';
-import type { CreditsState } from '../types';
-import initialState from './initialState';
+import { Credits } from '../models';
 
 export default (
-  state: CreditsState = initialState,
+  state: Credits = new Credits(),
   { payload: id }: { payload: string } = {},
-): CreditsState => {
-  const { order, items } = state;
-  return {
-    order: filter(itemId => itemId !== id, order),
-    items: omit(id, items),
-  };
-};
+): Credits => state.removeCredit(id);

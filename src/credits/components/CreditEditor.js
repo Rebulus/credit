@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
-import type { Credit } from '../types';
+import { Credit } from '../models';
 
 type CreditEditorProps = {
   credit: Credit,
@@ -26,7 +26,7 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
 
   componentWillReceiveProps({ credit }: CreditEditorProps) {
     if (credit !== this.state.credit) {
-      const newCredit: Credit = { ...credit };
+      const newCredit: Credit = new Credit(credit);
       this.setState({
         credit: newCredit,
       });
@@ -35,7 +35,7 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
 
   onNameChange = (name: string) => {
     const { credit }: CreditEditorState = this.state;
-    const newCredit: Credit = { ...credit, name };
+    const newCredit: Credit = credit.update({ name });
     this.setState({
       credit: newCredit,
     });
@@ -43,7 +43,7 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
 
   onMonthsChange = (months: string) => {
     const { credit }: CreditEditorState = this.state;
-    const newCredit: Credit = { ...credit, months: Number(months) };
+    const newCredit: Credit = credit.update({ months: Number(months) });
     this.setState({
       credit: newCredit,
     });
@@ -51,7 +51,7 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
 
   onPercentChange = (percent: string) => {
     const { credit }: CreditEditorState = this.state;
-    const newCredit: Credit = { ...credit, percent: Number(percent) };
+    const newCredit: Credit = credit.update({ percent: Number(percent) });
     this.setState({
       credit: newCredit,
     });

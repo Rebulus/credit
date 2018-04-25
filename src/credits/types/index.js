@@ -22,7 +22,7 @@ export type CreditsItems = {
 
 export type CreditsOrder = Array<string>;
 
-export type CreditsState = {|
+export type Credits = {|
   +order: CreditsOrder,
   +items: CreditsItems,
 |};

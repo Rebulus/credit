@@ -1,12 +1,12 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import type { CreditsState, Credit } from '../types';
+import { Credits, Credit } from '../models';
 import { CreditView, CreditEditor } from '../components';
 import { updateCredit } from '../actions';
 
 type CreditsViewProps = {
-  credits: CreditsState,
+  credits: Credits,
   update: Function,
 };
 
@@ -15,15 +15,20 @@ class CreditsView extends PureComponent<CreditsViewProps> {
     const { update }: CreditsViewProps = this.props;
     update({
       id,
-      isEdited: true,
+      data: {
+        isEdited: true,
+      },
     });
   };
 
   onSave = (credit: Credit) => {
     const { update }: CreditsViewProps = this.props;
     update({
-      ...credit,
-      isEdited: false,
+      id: credit.id,
+      data: {
+        ...credit,
+        isEdited: false,
+      },
     });
   };
 
@@ -31,7 +36,9 @@ class CreditsView extends PureComponent<CreditsViewProps> {
     const { update }: CreditsViewProps = this.props;
     update({
       id,
-      isEdited: false,
+      data: {
+        isEdited: false,
+      },
     });
   };
 

@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import type { Credit } from '../types';
+import { Credit } from '../models';
 
 type CreditViewProps = {
   credit: Credit,

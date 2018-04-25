@@ -1,23 +1,7 @@
 // @flow
-import type { CreditsState, Credit } from '../types';
-import initialState from './initialState';
+import { Credits, Credit } from '../models';
 
 export default (
-  state: CreditsState = initialState,
+  state: Credits = new Credits(),
   { payload: credit }: { payload: Credit } = {},
-): CreditsState => {
-  const { items, order }: CreditsState = state;
-  const { id }: Credit = credit;
-  return {
-    order: [
-      ...order,
-      id,
-    ],
-    items: {
-      ...items,
-      [id]: {
-        ...credit,
-      },
-    },
-  };
-};
+): Credits => state.addCredit(credit);

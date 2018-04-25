@@ -1,20 +1,8 @@
 // @flow
-import type { CreditsState, PartialCredit } from '../types';
-import initialState from './initialState';
+import { Credits } from '../models';
+import type { CreditPatch } from '../models';
 
 export default (
-  state: CreditsState = initialState,
-  { payload: credit }: { payload: PartialCredit } = {},
-): CreditsState => {
-  const { items } = state;
-  return {
-    order: state.order,
-    items: {
-      ...items,
-      [credit.id]: {
-        ...items[credit.id],
-        ...credit,
-      },
-    },
-  };
-};
+  state: Credits = new Credits(),
+  { payload: creditPatch }: { payload: CreditPatch } = {},
+): Credits => state.updateCredit(creditPatch);
