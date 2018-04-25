@@ -8,7 +8,6 @@ export type CreditUpdate = {
   value?: number,
   months?: number,
   percent?: number,
-  isEdited?: boolean,
 };
 
 export type CreditPatch = {
@@ -22,7 +21,6 @@ const allowedProperties = [
   'value',
   'months',
   'percent',
-  'isEdited',
 ];
 
 export default class Credit {
@@ -31,7 +29,6 @@ export default class Credit {
   +value: number;
   +months: number;
   +percent: number;
-  +isEdited: boolean;
 
   constructor(data: CreditUpdate | Credit = { id: v4() }) {
     this.id = v4();
@@ -42,7 +39,6 @@ export default class Credit {
   value = 0;
   months = 0;
   percent = 0;
-  isEdited = false;
 
   update(creditUpdate: CreditUpdate): Credit {
     return new Credit({

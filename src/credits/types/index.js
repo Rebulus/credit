@@ -6,7 +6,6 @@ export type Credit = {|
   +value: number,
   +months: number,
   +percent: number,
-  +isEdited: boolean,
 |};
 
 export type PartialCredit = {|

@@ -1,52 +1,47 @@
 // @flow
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 import { Credits, Credit } from '../models';
 import { CreditView, CreditEditor } from '../components';
-import { updateCredit } from '../actions';
+import {
+  saveCredit,
+  editCredit,
+  cancelEditCredit,
+} from '../../thunks';
 
 type CreditsViewProps = {
   credits: Credits,
-  update: Function,
+  editedCreditId: string,
+  edit: Function,
+  save: Function,
+  cancel: Function,
 };
 
 class CreditsView extends PureComponent<CreditsViewProps> {
   onEdit = (id: string) => {
-    const { update }: CreditsViewProps = this.props;
-    update({
-      id,
-      data: {
-        isEdited: true,
-      },
-    });
+    const { edit }: CreditsViewProps = this.props;
+    edit(id);
   };
 
   onSave = (credit: Credit) => {
-    const { update }: CreditsViewProps = this.props;
-    update({
+    const { save }: CreditsViewProps = this.props;
+    save({
       id: credit.id,
-      data: {
-        ...credit,
-        isEdited: false,
-      },
+      data: credit,
     });
   };
 
-  onStopEditing = (id: string) => {
-    const { update }: CreditsViewProps = this.props;
-    update({
-      id,
-      data: {
-        isEdited: false,
-      },
-    });
+  onStopEditing = () => {
+    const { cancel }: CreditsViewProps = this.props;
+    cancel();
   };
 
   render() {
-    const { credits: { order, items } } : CreditsViewProps = this.props;
+    const { credits: { order, items }, editedCreditId } : CreditsViewProps = this.props;
     return order.map((id: string) => {
       const credit: Credit = items[id];
-      if (items[id].isEdited) {
+      if (id === editedCreditId) {
         return (
           <CreditEditor
             key={id}
@@ -69,9 +64,14 @@ class CreditsView extends PureComponent<CreditsViewProps> {
 
 const mapsStateToProps = state => ({
   credits: state.credits,
+  editedCreditId: state.appStatus.status === 'EDIT_CREDIT'
+    ? get(state.appStatus, 'data.id', null)
+    : null,
 });
 const mapsDispatchToProps = {
-  update: updateCredit,
+  save: saveCredit,
+  edit: editCredit,
+  cancel: cancelEditCredit,
 };
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(CreditsView);
