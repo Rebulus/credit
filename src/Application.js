@@ -2,16 +2,18 @@
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import store from './store';
 import {
   CreditsView,
   AddCredit,
 } from './credits/containers';
+import {
+  PaymentsList,
+} from './payments/containers';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     paddingTop: 50,
     paddingLeft: 30,
@@ -27,10 +29,11 @@ export default class Application extends Component<Props> {
   render() {
     return (
       <Provider store={this.store}>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <CreditsView />
           <AddCredit />
-        </View>
+          <PaymentsList />
+        </ScrollView>
       </Provider>
     );
   }

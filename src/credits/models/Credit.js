@@ -46,4 +46,14 @@ export default class Credit {
       ...creditUpdate,
     });
   }
+
+  getPercentByMonth(): number {
+    return this.percent / 12 / 100;
+  }
+
+  getMonthPay(): number {
+    const percentByMonth = this.getPercentByMonth();
+    const percentForMonths = (1 + percentByMonth) ** this.months;
+    return this.value * ((percentByMonth * percentForMonths) / (percentForMonths - 1));
+  }
 }

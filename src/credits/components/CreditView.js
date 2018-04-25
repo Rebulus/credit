@@ -32,7 +32,7 @@ class CreditView extends PureComponent<CreditViewProps> {
     return (
       <View style={styles.creditView}>
         <Text>{credit.name}</Text>
-        <Text>Months: {credit.months}, Percent: {credit.percent * 100}%</Text>
+        <Text>Months: {credit.months}, Percent: {credit.percent}%, Value: {credit.value}</Text>
         <Button
           title="Edit"
           onPress={this.onEdit}

@@ -57,6 +57,14 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
     });
   };
 
+  onValueChange = (value: string) => {
+    const { credit }: CreditEditorState = this.state;
+    const newCredit: Credit = credit.update({ value: Number(value) });
+    this.setState({
+      credit: newCredit,
+    });
+  };
+
   onSaveCredit = () => {
     const { credit }: CreditEditorState = this.state;
     const { onSave }: CreditEditorProps = this.props;
@@ -89,6 +97,11 @@ class CreditEditor extends PureComponent<CreditEditorProps, CreditEditorState> {
           placeholder="Percent"
           onChangeText={this.onPercentChange}
           value={String(credit.percent)}
+        />
+        <TextInput
+          placeholder="Value"
+          onChangeText={this.onValueChange}
+          value={String(credit.value)}
         />
         <Button
           disabled={credit === originalCredit}

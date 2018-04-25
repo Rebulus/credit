@@ -1,5 +1,5 @@
 // @flow
-import { filter, omit } from 'lodash';
+import { filter, omit, reduce } from 'lodash';
 import Credit from './Credit';
 import type { CreditPatch } from './Credit';
 
@@ -52,5 +52,15 @@ export default class Credits {
         [credit.id]: credit.update(creditPatch.data),
       },
     });
+  }
+
+  getMaxMonths() {
+    const { items } = this;
+    return reduce(items, (maxMonths: number, credit: Credit) => {
+      if (credit.months > maxMonths) {
+        return credit.months;
+      }
+      return maxMonths;
+    }, 0);
   }
 }
