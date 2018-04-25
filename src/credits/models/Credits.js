@@ -1,7 +1,7 @@
 // @flow
 import { filter, omit, reduce } from 'lodash';
 import Credit from './Credit';
-import type { CreditPatch } from './Credit';
+import type { CreditPatch, CreditJSON } from './Credit';
 
 export type CreditsItems = {
   +[key: string]: Credit,
@@ -14,9 +14,48 @@ export type CreditsPatch = {
   items?: CreditsItems;
 };
 
+export type CreditsJSON = {
+  +type: 'Credits',
+  +data: {
+    +order: Array<string>,
+    +items: {
+      +[key: string]: CreditJSON,
+    },
+  },
+}
+
 export default class Credits {
   +order: CreditsOrder;
   +items: CreditsItems;
+
+  static toJSON(credits: Credits): CreditsJSON {
+    return {
+      type: 'Credits',
+      data: {
+        order: [...credits.order],
+        items: reduce(credits.items, (items, credit: Credit) => ({
+          ...items,
+          [credit.id]: Credit.toJSON(credit),
+        }), {}),
+      },
+    };
+  }
+
+  static fromJSON(json: CreditsJSON): Credits {
+    if (json.type === 'Credits') {
+      return new Credits({
+        order: json.data.order,
+        items: reduce(json.data.items, (items, creditJson: CreditJSON) => {
+          const credit = Credit.fromJSON(creditJson);
+          return {
+            ...items,
+            [credit.id]: credit,
+          };
+        }, {}),
+      });
+    }
+    return new Credits();
+  }
 
   constructor(credits: CreditsPatch | Credits = {}) {
     this.order = credits.order || [];

@@ -15,6 +15,11 @@ export type CreditPatch = {
   data: CreditUpdate,
 };
 
+export type CreditJSON = {
+  +type: 'Credit',
+  +data: CreditUpdate,
+}
+
 const allowedProperties = [
   'id',
   'name',
@@ -29,6 +34,22 @@ export default class Credit {
   +value: number;
   +months: number;
   +percent: number;
+
+  static toJSON(credit: Credit): CreditJSON {
+    return {
+      type: 'Credit',
+      data: {
+        ...pick(credit, allowedProperties),
+      },
+    };
+  }
+
+  static fromJSON(json: CreditJSON): Credit {
+    if (json.type === 'Credit') {
+      return new Credit(json.data);
+    }
+    return new Credit();
+  }
 
   constructor(data: CreditUpdate | Credit = { id: v4() }) {
     this.id = v4();
