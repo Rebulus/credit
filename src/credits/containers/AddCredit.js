@@ -1,6 +1,11 @@
 // @flow
 import React, { PureComponent } from 'react';
-import { Button } from 'react-native';
+import {
+  Grid,
+  Col,
+  Button,
+  Text,
+} from 'native-base';
 import { connect } from 'react-redux';
 import {
   addCredit,
@@ -14,10 +19,16 @@ class AddCredit extends PureComponent<AddCreditProps> {
   render() {
     const { add } = this.props;
     return (
-      <Button
-        title="Add Credit"
-        onPress={add}
-      />
+      <Grid>
+        <Col style={{ justifyContent: 'center' }}>
+          <Button
+            block
+            onPress={add}
+          >
+            <Text>Add Credit</Text>
+          </Button>
+        </Col>
+      </Grid>
     );
   }
 }

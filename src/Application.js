@@ -1,8 +1,21 @@
 // @flow
-
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { StyleSheet, ScrollView } from 'react-native';
+import {
+  Root,
+  Grid,
+  Col,
+  Spinner,
+  Container,
+  Header,
+  Title,
+  Body,
+  Content,
+  Footer,
+} from 'native-base';
+import Roboto from 'native-base/Fonts/Roboto.ttf';
+import Roboto_medium from 'native-base/Fonts/Roboto_medium.ttf';
+import { Font } from 'expo';
 import store from './store';
 import {
   CreditsView,
@@ -12,29 +25,62 @@ import {
   PaymentsList,
 } from './payments/containers';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    paddingTop: 50,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingBottom: 30,
-  },
-});
-
 type Props = {};
 export default class Application extends Component<Props> {
   store = store;
 
-  render() {
+  state = {
+    loading: true,
+  };
+
+  async componentWillMount() {
+    await Font.loadAsync({
+      Roboto,
+      Roboto_medium,
+    });
+    this.setState({ loading: false });
+  }
+
+  renderSpinner() {
     return (
-      <Provider store={this.store}>
-        <ScrollView style={styles.container}>
-          <CreditsView />
-          <AddCredit />
-          <PaymentsList />
-        </ScrollView>
-      </Provider>
+      <Root>
+        <Grid>
+          <Col style={{ justifyContent: 'center' }}>
+            <Spinner />
+          </Col>
+        </Grid>
+      </Root>
     );
+  }
+
+  renderContent() {
+    return (
+      <Root>
+        <Provider store={this.store}>
+          <Container>
+            <Header>
+              <Body>
+                <Title>Header</Title>
+              </Body>
+            </Header>
+            <Content>
+              <CreditsView />
+              <PaymentsList />
+            </Content>
+            <Footer>
+              <AddCredit />
+            </Footer>
+          </Container>
+        </Provider>
+      </Root>
+    );
+  }
+
+  render() {
+    const { loading } = this.state;
+    if (loading) {
+      return this.renderSpinner();
+    }
+    return this.renderContent();
   }
 }
